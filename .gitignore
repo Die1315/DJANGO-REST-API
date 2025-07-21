@@ -1,12 +1,25 @@
-__pycache__/*
-*.pyc
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 *.pyo
-*.pyd
-*.pyw
-*.pyz
-*.pywz
-*.pyzw
-*.pyzwz
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+local_settings.py
+
+# Environments
+.env
+venv/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
 
 
 
