@@ -13,6 +13,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DEBUG: true
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DB_NAME: testdb
+      DB_USER: testuser
+      DB_PASSWORD: testpass
+      DB_HOST: localhost
+      DB_PORT: 5432
+      
+
     steps:
       - name: Start CI workflow
         run: |
@@ -29,6 +53,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      - name: Run migrations
+        run: |
+          echo "Running migrations"
+          python manage.py migrate
       - name: Run tests
         run: |
           echo "Running tests"
